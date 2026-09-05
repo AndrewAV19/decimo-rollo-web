@@ -27,9 +27,6 @@ import StarIcon from "@mui/icons-material/Star";
 import CloseIcon from "@mui/icons-material/Close";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import SearchIcon from "@mui/icons-material/Search";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
 
 interface MenuItem {
   id: number;
@@ -182,31 +179,7 @@ const FullMenu: React.FC = () => {
   const [priceRange, setPriceRange] = useState<number[]>([0, 50]);
   const [showAvailable, setShowAvailable] = useState(true);
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
-  const [cart, setCart] = useState<Record<number, number>>({});
   const isMobile = useMediaQuery("(max-width:600px)");
-
-  const handleAddToCart = (id: number) => {
-    setCart((prev) => ({
-      ...prev,
-      [id]: (prev[id] || 0) + 1,
-    }));
-  };
-
-  const handleRemoveFromCart = (id: number) => {
-    setCart((prev) => {
-      const newCart = { ...prev };
-      if (newCart[id] === 1) {
-        delete newCart[id];
-      } else if (newCart[id] > 0) {
-        newCart[id] -= 1;
-      }
-      return newCart;
-    });
-  };
-
-  const getTotalItems = () => {
-    return Object.values(cart).reduce((sum, qty) => sum + qty, 0);
-  };
 
   const filteredItems = allMenuItems.filter((item) => {
     const matchesSearch =
@@ -450,7 +423,6 @@ const FullMenu: React.FC = () => {
               sx={{
                 display: "flex",
                 justifyContent: { xs: "flex-start", md: "flex-end" },
-                gap: 2,
               }}
             >
               {isMobile && (
@@ -471,32 +443,6 @@ const FullMenu: React.FC = () => {
                 >
                   Filtros
                 </Button>
-              )}
-              {getTotalItems() > 0 && (
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 1,
-                    backgroundColor: "#FFFFFF",
-                    padding: "6px 16px",
-                    borderRadius: "12px",
-                    border: "1px solid rgba(196,154,108,0.15)",
-                    boxShadow: "0 2px 12px rgba(196,154,108,0.06)",
-                  }}
-                >
-                  <ShoppingCartIcon sx={{ color: "#C49A6C" }} />
-                  <Typography
-                    sx={{
-                      fontFamily: '"Cormorant Garamond", serif',
-                      fontWeight: 600,
-                      color: "#2C1810",
-                      fontSize: "0.9rem",
-                    }}
-                  >
-                    {getTotalItems()} {getTotalItems() === 1 ? "artículo" : "artículos"}
-                  </Typography>
-                </Box>
               )}
             </Grid>
           </Grid>
@@ -802,92 +748,6 @@ const FullMenu: React.FC = () => {
                                   </Typography>
                                 </Box>
                               </Stack>
-
-                              {item.available && (
-                                <Box sx={{ mt: 1.5 }}>
-                                  {cart[item.id] ? (
-                                    <Box
-                                      sx={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "space-between",
-                                        gap: 1,
-                                      }}
-                                    >
-                                      <IconButton
-                                        size="small"
-                                        onClick={() =>
-                                          handleRemoveFromCart(item.id)
-                                        }
-                                        sx={{
-                                          backgroundColor:
-                                            "rgba(196,154,108,0.06)",
-                                          color: "#C49A6C",
-                                          padding: "4px",
-                                          "&:hover": {
-                                            backgroundColor:
-                                              "rgba(196,154,108,0.12)",
-                                          },
-                                        }}
-                                      >
-                                        <RemoveIcon sx={{ fontSize: 16 }} />
-                                      </IconButton>
-                                      <Typography
-                                        sx={{
-                                          fontFamily:
-                                            '"Cormorant Garamond", serif',
-                                          fontWeight: 600,
-                                          color: "#2C1810",
-                                          fontSize: "0.9rem",
-                                        }}
-                                      >
-                                        {cart[item.id]}
-                                      </Typography>
-                                      <IconButton
-                                        size="small"
-                                        onClick={() => handleAddToCart(item.id)}
-                                        sx={{
-                                          backgroundColor: "#C49A6C",
-                                          color: "#FFFFFF",
-                                          padding: "4px",
-                                          "&:hover": {
-                                            backgroundColor: "#D4B08C",
-                                          },
-                                        }}
-                                      >
-                                        <AddIcon sx={{ fontSize: 16 }} />
-                                      </IconButton>
-                                    </Box>
-                                  ) : (
-                                    <Button
-                                      fullWidth
-                                      size="small"
-                                      onClick={() => handleAddToCart(item.id)}
-                                      sx={{
-                                        backgroundColor:
-                                          "rgba(196,154,108,0.06)",
-                                        color: "#C49A6C",
-                                        fontFamily:
-                                          '"Cormorant Garamond", serif',
-                                        fontSize: "0.8rem",
-                                        fontWeight: 600,
-                                        textTransform: "none",
-                                        borderRadius: "10px",
-                                        padding: "6px",
-                                        transition: "all 0.3s ease",
-                                        "&:hover": {
-                                          backgroundColor: "#C49A6C",
-                                          color: "#FFFFFF",
-                                          boxShadow:
-                                            "0 4px 20px rgba(196,154,108,0.3)",
-                                        },
-                                      }}
-                                    >
-                                      Agregar al pedido
-                                    </Button>
-                                  )}
-                                </Box>
-                              )}
                             </CardContent>
                           </Card>
                         </motion.div>
@@ -898,19 +758,6 @@ const FullMenu: React.FC = () => {
               </motion.div>
             </AnimatePresence>
 
-            {filteredItems.length > 0 && (
-              <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
-                <Typography
-                  sx={{
-                    fontFamily: '"Cormorant Garamond", serif',
-                    color: "rgba(44,24,16,0.3)",
-                    fontSize: "0.85rem",
-                  }}
-                >
-                  Mostrando {filteredItems.length} de {allMenuItems.length} platos
-                </Typography>
-              </Box>
-            )}
           </Grid>
         </Grid>
       </Container>
