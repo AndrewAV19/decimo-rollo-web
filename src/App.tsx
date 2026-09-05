@@ -10,6 +10,7 @@ import Testimonials from "./components/Testimonials";
 import Footer from "./components/Footer";
 import MissionVision from "./components/MissionVision";
 import Contact from "./components/Contact";
+import Promotions from "./components/Promotions";
 
 function App() {
   return (
@@ -26,7 +27,11 @@ function App() {
         <Menu />
       </Box>
 
-      <Box id="promociones">
+       <Box id="promociones">
+        <Promotions />
+      </Box>
+
+      <Box id="testimonials">
         <Testimonials />
       </Box>
 

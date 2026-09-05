@@ -48,7 +48,7 @@ const Contact: React.FC = () => {
     <Box
       sx={{
         py: { xs: 8, md: 14 },
-        backgroundColor: "#FDF9F6",
+        backgroundColor: "#eadcd3",
         position: "relative",
         overflow: "hidden",
       }}

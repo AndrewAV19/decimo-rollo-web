@@ -42,7 +42,7 @@ const initialTestimonials: Testimonial[] = [
     rating: 5,
     date: "15 de enero, 2026",
     comment:
-      "La mejor experiencia de sushi que he tenido fuera de Japón. El sashimi estaba increíblemente fresco y el servicio fue impecable.",
+      "La mejor experiencia de sushi que he tenido fuera de Japón. El sashimi estaba increíblemente fresco y el servicio fue impecable. Definitivamente volveré.",
     verified: true,
     dish: "Sashimi Deluxe",
   },
@@ -53,9 +53,9 @@ const initialTestimonials: Testimonial[] = [
     rating: 5,
     date: "12 de enero, 2026",
     comment:
-      "Un lugar elegante con una atmósfera acogedora. Los rolls Promociones son una obra de arte culinaria.",
+      "Un lugar elegante con una atmósfera acogedora. Los rolls especiales son una obra de arte culinaria. Perfecto para una cena especial.",
     verified: true,
-    dish: "Rolls Promociones",
+    dish: "Rolls Especiales",
   },
   {
     id: 3,
@@ -64,7 +64,7 @@ const initialTestimonials: Testimonial[] = [
     rating: 4,
     date: "10 de enero, 2026",
     comment:
-      "Excelente atención y comida deliciosa. El temaki premium es mi favorito.",
+      "Excelente atención y comida deliciosa. El temaki premium es mi favorito. La relación calidad-precio es muy buena.",
     verified: false,
     dish: "Temaki Premium",
   },
@@ -75,7 +75,7 @@ const initialTestimonials: Testimonial[] = [
     rating: 5,
     date: "8 de enero, 2026",
     comment:
-      "Un verdadero tesoro escondido. La sopa miso es la mejor que he probado.",
+      "Un verdadero tesoro escondido. La sopa miso es la mejor que he probado. El ambiente es relajado y sofisticado.",
     verified: true,
     dish: "Sopa Miso",
   },
@@ -90,11 +90,6 @@ const Testimonials: React.FC = () => {
     rating: 5,
   });
   const [submitted, setSubmitted] = useState(false);
-
-  const primaryColor = "#8CB3A8";
-  const lightColor = "#C4D9D2";
-  const bgColor = "#F6FAF8";
-  const textColor = "#1C2E28";
 
   const handlePrev = () => {
     setCurrentIndex((prev) =>
@@ -127,7 +122,7 @@ const Testimonials: React.FC = () => {
     <Box
       sx={{
         py: { xs: 8, md: 14 },
-        backgroundColor: bgColor,
+        backgroundColor: "#FDF9F6",
         position: "relative",
         overflow: "hidden",
       }}
@@ -139,7 +134,8 @@ const Testimonials: React.FC = () => {
           left: 0,
           right: 0,
           height: 4,
-          background: `linear-gradient(90deg, ${primaryColor} 0%, ${lightColor} 50%, ${primaryColor} 100%)`,
+          background:
+            "linear-gradient(90deg, #C49A6C 0%, #E8D5C4 50%, #C49A6C 100%)",
         }}
       />
 
@@ -150,7 +146,8 @@ const Testimonials: React.FC = () => {
           right: "-10%",
           width: "40%",
           height: "60%",
-          background: `radial-gradient(circle, ${primaryColor}08 0%, transparent 70%)`,
+          background:
+            "radial-gradient(circle, rgba(196, 154, 108, 0.05) 0%, transparent 70%)",
           borderRadius: "50%",
         }}
       />
@@ -166,7 +163,7 @@ const Testimonials: React.FC = () => {
             <Typography
               variant="overline"
               sx={{
-                color: primaryColor,
+                color: "#C49A6C",
                 letterSpacing: "0.4em",
                 fontSize: { xs: "0.6rem", sm: "0.75rem" },
                 fontWeight: 300,
@@ -181,7 +178,7 @@ const Testimonials: React.FC = () => {
                   transform: "translateX(-50%)",
                   width: 40,
                   height: 2,
-                  backgroundColor: `${primaryColor}4D`,
+                  backgroundColor: "rgba(196, 154, 108, 0.3)",
                 },
               }}
             >
@@ -193,7 +190,7 @@ const Testimonials: React.FC = () => {
               sx={{
                 fontFamily: '"Playfair Display", serif',
                 fontWeight: 700,
-                color: textColor,
+                color: "#2C1810",
                 fontSize: { xs: "2.2rem", sm: "3rem", md: "3.8rem" },
                 mt: 1.5,
                 mb: 1,
@@ -201,14 +198,14 @@ const Testimonials: React.FC = () => {
               }}
             >
               Lo que dicen{" "}
-              <span style={{ color: primaryColor }}>nuestros clientes</span>
+              <span style={{ color: "#C49A6C" }}>nuestros clientes</span>
             </Typography>
 
             <Typography
               variant="body1"
               sx={{
                 fontFamily: '"Cormorant Garamond", serif',
-                color: `${textColor}80`,
+                color: "rgba(44, 24, 16, 0.6)",
                 fontSize: { xs: "0.95rem", sm: "1.1rem" },
                 maxWidth: 500,
                 mx: "auto",
@@ -232,11 +229,11 @@ const Testimonials: React.FC = () => {
                   top: "50%",
                   transform: "translateY(-50%)",
                   zIndex: 2,
-                  backgroundColor: "#FFFFFF",
-                  boxShadow: "0 4px 20px rgba(44, 36, 32, 0.06)",
+                  backgroundColor: "white",
+                  boxShadow: "0 4px 20px rgba(44, 24, 16, 0.08)",
                   "&:hover": {
-                    backgroundColor: primaryColor,
-                    color: "#FFFFFF",
+                    backgroundColor: "#C49A6C",
+                    color: "white",
                   },
                   display: { xs: "none", md: "flex" },
                 }}
@@ -252,11 +249,11 @@ const Testimonials: React.FC = () => {
                   top: "50%",
                   transform: "translateY(-50%)",
                   zIndex: 2,
-                  backgroundColor: "#FFFFFF",
-                  boxShadow: "0 4px 20px rgba(44, 36, 32, 0.06)",
+                  backgroundColor: "white",
+                  boxShadow: "0 4px 20px rgba(44, 24, 16, 0.08)",
                   "&:hover": {
-                    backgroundColor: primaryColor,
-                    color: "#FFFFFF",
+                    backgroundColor: "#C49A6C",
+                    color: "white",
                   },
                   display: { xs: "none", md: "flex" },
                 }}
@@ -280,12 +277,12 @@ const Testimonials: React.FC = () => {
                             height: "100%",
                             borderRadius: "20px",
                             backgroundColor: "#FFFFFF",
-                            boxShadow: "0 2px 16px rgba(44, 36, 32, 0.04)",
-                            border: `1px solid ${primaryColor}14`,
+                            boxShadow: "0 4px 20px rgba(44, 24, 16, 0.04)",
+                            border: "1px solid rgba(196, 154, 108, 0.08)",
                             transition: "all 0.3s ease",
                             "&:hover": {
-                              boxShadow: `0 8px 32px ${primaryColor}1A`,
-                              border: `1px solid ${primaryColor}26`,
+                              boxShadow: "0 12px 40px rgba(196, 154, 108, 0.1)",
+                              border: "1px solid rgba(196, 154, 108, 0.15)",
                             },
                             position: "relative",
                             overflow: "visible",
@@ -296,8 +293,8 @@ const Testimonials: React.FC = () => {
                               position: "absolute",
                               top: -10,
                               left: 20,
-                              color: primaryColor,
-                              opacity: 0.08,
+                              color: "#C49A6C",
+                              opacity: 0.1,
                               fontSize: 40,
                             }}
                           >
@@ -313,8 +310,8 @@ const Testimonials: React.FC = () => {
                               >
                                 <Avatar
                                   sx={{
-                                    bgcolor: primaryColor,
-                                    color: "#FFFFFF",
+                                    bgcolor: "#C49A6C",
+                                    color: "white",
                                     width: 44,
                                     height: 44,
                                     fontFamily: '"Cormorant Garamond", serif',
@@ -329,7 +326,7 @@ const Testimonials: React.FC = () => {
                                     sx={{
                                       fontFamily: '"Cormorant Garamond", serif',
                                       fontWeight: 600,
-                                      color: textColor,
+                                      color: "#2C1810",
                                       fontSize: "0.95rem",
                                     }}
                                   >
@@ -348,7 +345,7 @@ const Testimonials: React.FC = () => {
                                         <StarIcon
                                           sx={{
                                             fontSize: 14,
-                                            color: primaryColor,
+                                            color: "#C49A6C",
                                           }}
                                         />
                                       }
@@ -356,7 +353,7 @@ const Testimonials: React.FC = () => {
                                         <StarIcon
                                           sx={{
                                             fontSize: 14,
-                                            color: `${primaryColor}33`,
+                                            color: "rgba(196,154,108,0.2)",
                                           }}
                                         />
                                       }
@@ -364,7 +361,7 @@ const Testimonials: React.FC = () => {
                                     <Typography
                                       variant="caption"
                                       sx={{
-                                        color: `${textColor}4D`,
+                                        color: "rgba(44,24,16,0.4)",
                                         fontSize: "0.6rem",
                                         ml: 0.5,
                                       }}
@@ -376,7 +373,7 @@ const Testimonials: React.FC = () => {
                                 {testimonial.verified && (
                                   <VerifiedIcon
                                     sx={{
-                                      color: "#A8C4A8",
+                                      color: "#4CAF50",
                                       fontSize: 16,
                                       ml: "auto",
                                     }}
@@ -388,7 +385,7 @@ const Testimonials: React.FC = () => {
                                 variant="body2"
                                 sx={{
                                   fontFamily: '"Cormorant Garamond", serif',
-                                  color: `${textColor}B3`,
+                                  color: "rgba(44,24,16,0.7)",
                                   fontSize: "0.9rem",
                                   lineHeight: 1.7,
                                   fontStyle: "italic",
@@ -403,14 +400,13 @@ const Testimonials: React.FC = () => {
                                   label={`🍽️ ${testimonial.dish}`}
                                   size="small"
                                   sx={{
-                                    backgroundColor: `${primaryColor}0D`,
-                                    color: primaryColor,
+                                    backgroundColor: "rgba(196,154,108,0.08)",
+                                    color: "#C49A6C",
                                     fontSize: "0.65rem",
                                     fontFamily: '"Cormorant Garamond", serif',
                                     alignSelf: "flex-start",
                                     borderRadius: "20px",
                                     height: 24,
-                                    border: `1px solid ${primaryColor}1A`,
                                   }}
                                 />
                               )}
@@ -441,12 +437,12 @@ const Testimonials: React.FC = () => {
                       borderRadius: "50%",
                       backgroundColor:
                         index === currentIndex
-                          ? primaryColor
-                          : `${primaryColor}33`,
+                          ? "#C49A6C"
+                          : "rgba(196,154,108,0.2)",
                       cursor: "pointer",
                       transition: "all 0.3s ease",
                       "&:hover": {
-                        backgroundColor: primaryColor,
+                        backgroundColor: "#C49A6C",
                       },
                     }}
                   />
@@ -467,15 +463,15 @@ const Testimonials: React.FC = () => {
                   p: { xs: 3, sm: 4 },
                   borderRadius: "24px",
                   backgroundColor: "#FFFFFF",
-                  boxShadow: "0 4px 24px rgba(44, 36, 32, 0.04)",
-                  border: `1px solid ${primaryColor}14`,
+                  boxShadow: "0 8px 40px rgba(44, 24, 16, 0.06)",
+                  border: "1px solid rgba(196, 154, 108, 0.1)",
                 }}
               >
                 <Typography
                   sx={{
                     fontFamily: '"Playfair Display", serif',
                     fontWeight: 700,
-                    color: textColor,
+                    color: "#2C1810",
                     fontSize: "1.5rem",
                     mb: 1,
                   }}
@@ -485,7 +481,7 @@ const Testimonials: React.FC = () => {
                 <Typography
                   sx={{
                     fontFamily: '"Cormorant Garamond", serif',
-                    color: `${textColor}80`,
+                    color: "rgba(44,24,16,0.6)",
                     fontSize: "0.95rem",
                     mb: 3,
                   }}
@@ -508,7 +504,7 @@ const Testimonials: React.FC = () => {
                       <Typography
                         sx={{
                           fontFamily: '"Playfair Display", serif',
-                          color: primaryColor,
+                          color: "#C49A6C",
                           fontSize: "2rem",
                           mb: 1,
                         }}
@@ -518,7 +514,7 @@ const Testimonials: React.FC = () => {
                       <Typography
                         sx={{
                           fontFamily: '"Cormorant Garamond", serif',
-                          color: textColor,
+                          color: "#2C1810",
                           fontSize: "1.2rem",
                           fontWeight: 600,
                         }}
@@ -528,7 +524,7 @@ const Testimonials: React.FC = () => {
                       <Typography
                         sx={{
                           fontFamily: '"Cormorant Garamond", serif',
-                          color: `${textColor}80`,
+                          color: "rgba(44,24,16,0.6)",
                           fontSize: "0.9rem",
                           mt: 0.5,
                         }}
@@ -552,21 +548,21 @@ const Testimonials: React.FC = () => {
                           "& .MuiOutlinedInput-root": {
                             borderRadius: "12px",
                             "& fieldset": {
-                              borderColor: `${primaryColor}33`,
+                              borderColor: "rgba(196,154,108,0.2)",
                             },
                             "&:hover fieldset": {
-                              borderColor: `${primaryColor}66`,
+                              borderColor: "rgba(196,154,108,0.4)",
                             },
                             "&.Mui-focused fieldset": {
-                              borderColor: primaryColor,
+                              borderColor: "#C49A6C",
                             },
                           },
                           "& .MuiInputLabel-root": {
                             fontFamily: '"Cormorant Garamond", serif',
-                            color: `${textColor}66`,
+                            color: "rgba(44,24,16,0.5)",
                           },
                           "& .MuiInputLabel-root.Mui-focused": {
-                            color: primaryColor,
+                            color: "#C49A6C",
                           },
                         }}
                       />
@@ -575,7 +571,7 @@ const Testimonials: React.FC = () => {
                         <Typography
                           sx={{
                             fontFamily: '"Cormorant Garamond", serif',
-                            color: `${textColor}99`,
+                            color: "rgba(44,24,16,0.7)",
                             fontSize: "0.9rem",
                             mb: 1,
                           }}
@@ -588,9 +584,9 @@ const Testimonials: React.FC = () => {
                             setFormData({ ...formData, rating: newValue || 5 })
                           }
                           size="large"
-                          icon={<StarIcon sx={{ color: primaryColor }} />}
+                          icon={<StarIcon sx={{ color: "#C49A6C" }} />}
                           emptyIcon={
-                            <StarIcon sx={{ color: `${primaryColor}33` }} />
+                            <StarIcon sx={{ color: "rgba(196,154,108,0.2)" }} />
                           }
                         />
                       </Box>
@@ -609,21 +605,21 @@ const Testimonials: React.FC = () => {
                           "& .MuiOutlinedInput-root": {
                             borderRadius: "12px",
                             "& fieldset": {
-                              borderColor: `${primaryColor}33`,
+                              borderColor: "rgba(196,154,108,0.2)",
                             },
                             "&:hover fieldset": {
-                              borderColor: `${primaryColor}66`,
+                              borderColor: "rgba(196,154,108,0.4)",
                             },
                             "&.Mui-focused fieldset": {
-                              borderColor: primaryColor,
+                              borderColor: "#C49A6C",
                             },
                           },
                           "& .MuiInputLabel-root": {
                             fontFamily: '"Cormorant Garamond", serif',
-                            color: `${textColor}66`,
+                            color: "rgba(44,24,16,0.5)",
                           },
                           "& .MuiInputLabel-root.Mui-focused": {
-                            color: primaryColor,
+                            color: "#C49A6C",
                           },
                         }}
                       />
@@ -634,7 +630,7 @@ const Testimonials: React.FC = () => {
                         fullWidth
                         endIcon={<SendIcon />}
                         sx={{
-                          backgroundColor: primaryColor,
+                          backgroundColor: "#C49A6C",
                           color: "#FFFFFF",
                           fontFamily: '"Cormorant Garamond", serif',
                           fontSize: "0.9rem",
@@ -645,8 +641,8 @@ const Testimonials: React.FC = () => {
                           borderRadius: "12px",
                           transition: "all 0.3s ease",
                           "&:hover": {
-                            backgroundColor: lightColor,
-                            boxShadow: `0 8px 30px ${primaryColor}4D`,
+                            backgroundColor: "#D4B08C",
+                            boxShadow: "0 8px 30px rgba(196, 154, 108, 0.3)",
                           },
                         }}
                       >

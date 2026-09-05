@@ -47,7 +47,7 @@ const MissionVision: React.FC = () => {
     <Box
       sx={{
         py: { xs: 8, md: 14 },
-        backgroundColor: "#eadcd3",
+        backgroundColor: "#FDF9F6",
         position: "relative",
         overflow: "hidden",
       }}

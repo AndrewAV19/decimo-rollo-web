@@ -154,6 +154,7 @@ const Hero: React.FC = () => {
                     <Button
                       variant="contained"
                       size="large"
+                      href="#menu"
                       sx={{
                         backgroundColor: "#C49A6C",
                         color: "#0D0D0D",
