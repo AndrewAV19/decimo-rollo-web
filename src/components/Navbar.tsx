@@ -39,36 +39,52 @@ const Navbar: React.FC = () => {
     >
       <Container maxWidth="xl">
         <Toolbar sx={{ justifyContent: "space-between", py: 1 }}>
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <Typography
-              variant="h4"
-              color="primary"
-              sx={{
-                fontFamily: '"Playfair Display", serif',
-                fontWeight: 700,
-                letterSpacing: "0.1em",
-              }}
-            >
-              SAKURA
-              <Typography
-                component="span"
-                variant="caption"
-                sx={{
-                  display: "block",
-                  fontSize: "0.6rem",
-                  letterSpacing: "0.3em",
-                  color: "secondary.main",
-                  mt: -0.5,
-                }}
-              >
-                SUSHI & JAPANESE CUISINE
-              </Typography>
-            </Typography>
-          </motion.div>
+        
+<motion.div
+  initial={{ opacity: 0, x: -20 }}
+  animate={{ opacity: 1, x: 0 }}
+  transition={{ duration: 0.5 }}
+  style={{ display: "flex", alignItems: "center", gap: "10px" }}
+>
+  {/* Logo pequeño */}
+  <Box
+    component="img"
+    src="/images/logo.jpeg"
+    alt="Logo"
+    sx={{
+      height: "50px",
+      width: "50px",
+      borderRadius: "50%", // Si quieres que sea redondo (opcional)
+      objectFit: "cover",
+    }}
+  />
+  
+  {/* Texto */}
+  <Box sx={{ display: "flex", flexDirection: "column" }}>
+    <Typography
+      variant="h5"
+      color="primary"
+      sx={{
+        fontFamily: '"Playfair Display", serif',
+        fontWeight: 700,
+        letterSpacing: "0.1em",
+        lineHeight: 1,
+      }}
+    >
+      DÉCIMO ROLLO
+    </Typography>
+    <Typography
+      variant="caption"
+      sx={{
+        fontSize: "0.6rem",
+        letterSpacing: "0.3em",
+        color: "secondary.main",
+      }}
+    >
+      SUSHI & JAPANESE CUISINE
+    </Typography>
+  </Box>
+</motion.div>
 
           {!isMobile ? (
             <Box sx={{ display: "flex", gap: 2 }}>

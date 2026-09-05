@@ -56,7 +56,7 @@ const Hero: React.FC = () => {
                   mt: 1,
                 }}
               >
-                SAKURA
+                DÉCIMO ROLLO
               </Typography>
 
               <Typography
@@ -84,19 +84,6 @@ const Hero: React.FC = () => {
                   }}
                 >
                   Ver Menú
-                </Button>
-                <Button
-                  variant="outlined"
-                  sx={{
-                    borderColor: "secondary.main",
-                    color: "secondary.main",
-                    "&:hover": {
-                      borderColor: "secondary.dark",
-                      backgroundColor: "rgba(212,165,116,0.1)",
-                    },
-                  }}
-                >
-                  Reservar
                 </Button>
               </Box>
             </motion.div>
