@@ -9,6 +9,7 @@ import Menu from "./components/Menu";
 import Testimonials from "./components/Testimonials";
 import Footer from "./components/Footer";
 import MissionVision from "./components/MissionVision";
+import Contact from "./components/Contact";
 
 function App() {
   return (
@@ -27,6 +28,10 @@ function App() {
 
       <Box id="promociones">
         <Testimonials />
+      </Box>
+
+      <Box id="contact">
+        <Contact />
       </Box>
 
       <Box id="nosotros">
