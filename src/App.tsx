@@ -5,6 +5,9 @@ import { theme } from './theme/theme';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Menu from './components/Menu';
+import Testimonials from './components/Testimonials';
+import Footer from './components/Footer';
+import MissionVision from './components/MissionVision';
 
 
 function App() {
@@ -14,6 +17,9 @@ function App() {
       <Navbar />
       <Hero />
       <Menu />
+      <Testimonials />
+      <MissionVision />
+      <Footer />
      
     </ThemeProvider>
   );
