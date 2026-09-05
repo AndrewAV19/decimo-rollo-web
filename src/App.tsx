@@ -1,8 +1,8 @@
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Box } from "@mui/material";
-
 import { theme } from "./theme/theme";
+
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Menu from "./components/Menu";
@@ -11,40 +11,59 @@ import Footer from "./components/Footer";
 import MissionVision from "./components/MissionVision";
 import Contact from "./components/Contact";
 import Promotions from "./components/Promotions";
+import FullMenu from "./components/FullMenu";
+
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
 
-      <Navbar />
+        <ScrollToTop />
 
-      <Box id="inicio">
-        <Hero />
-      </Box>
+        <Navbar />
 
-      <Box id="menu">
-        <Menu />
-      </Box>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <Box id="inicio">
+                  <Hero />
+                </Box>
 
-       <Box id="promociones">
-        <Promotions />
-      </Box>
+                <Box id="menu">
+                  <Menu />
+                </Box>
 
-      <Box id="testimonials">
-        <Testimonials />
-      </Box>
+                <Box id="promociones">
+                  <Promotions />
+                </Box>
 
-      <Box id="contact">
-        <Contact />
-      </Box>
+                <Box id="testimonials">
+                  <Testimonials />
+                </Box>
 
-      <Box id="nosotros">
-        <MissionVision />
-      </Box>
+                <Box id="contact">
+                  <Contact />
+                </Box>
 
-      <Footer />
-    </ThemeProvider>
+                <Box id="nosotros">
+                  <MissionVision />
+                </Box>
+              </>
+            }
+          />
+
+          <Route path="/menu-completo" element={<FullMenu />} />
+        </Routes>
+
+        <Footer />
+      </ThemeProvider>
+    </BrowserRouter>
   );
 }
 

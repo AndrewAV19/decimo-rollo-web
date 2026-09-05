@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   AppBar,
   Toolbar,
@@ -21,16 +22,56 @@ import { motion } from "framer-motion";
 const Navbar: React.FC = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const isMobile = useMediaQuery("(max-width:900px)");
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const menuItems = [
-    { label: "Inicio", href: "#inicio" },
-    { label: "Menú", href: "#menu" },
-    { label: "Promociones", href: "#promociones" },
-    { label: "Contacto", href: "#contact" },
+    { label: "Inicio", id: "inicio" },
+    { label: "Menú", id: "menu" },
+    { label: "Promociones", id: "promociones" },
+    { label: "Contacto", id: "contact" },
   ];
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
+  };
+
+  const handleNavigation = (id: string) => {
+    if (location.pathname === "/") {
+      const element = document.getElementById(id);
+      if (element) {
+        const navbarHeight = 80;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition =
+          elementPosition + window.pageYOffset - navbarHeight;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        });
+      }
+    } else {
+      navigate("/");
+
+      setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) {
+          const navbarHeight = 80;
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition =
+            elementPosition + window.pageYOffset - navbarHeight;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+          });
+        }
+      }, 100);
+    }
+
+    if (mobileOpen) {
+      setMobileOpen(false);
+    }
   };
 
   return (
@@ -54,65 +95,74 @@ const Navbar: React.FC = () => {
               px: { xs: 1, sm: 2 },
             }}
           >
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-              style={{
+            <Box
+              onClick={() => handleNavigation("inicio")}
+              sx={{
                 display: "flex",
                 alignItems: "center",
                 gap: "14px",
                 cursor: "pointer",
+                textDecoration: "none",
               }}
             >
-              <Box
-                component="img"
-                src="/images/logo.jpeg"
-                alt="Décimo Rollo"
-                sx={{
-                  height: { xs: 42, sm: 52 },
-                  width: { xs: 42, sm: 52 },
-                  borderRadius: "50%",
-                  objectFit: "cover",
-                  border: "2px solid rgba(180, 130, 80, 0.3)",
-                  boxShadow: "0 4px 20px rgba(180, 130, 80, 0.15)",
-                  transition: "transform 0.3s ease",
-                  "&:hover": {
-                    transform: "scale(1.05)",
-                  },
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "14px",
                 }}
-              />
-
-              <Box sx={{ display: "flex", flexDirection: "column" }}>
-                <Typography
-                  variant="h5"
+              >
+                <Box
+                  component="img"
+                  src="/images/logo.jpeg"
+                  alt="Décimo Rollo"
                   sx={{
-                    fontFamily: '"Playfair Display", "Georgia", serif',
-                    fontWeight: 700,
-                    fontSize: { xs: "1.1rem", sm: "1.4rem" },
-                    letterSpacing: "0.15em",
-                    lineHeight: 1.1,
-                    color: "#2C1810",
-                    textShadow: "0 1px 2px rgba(0,0,0,0.05)",
+                    height: { xs: 42, sm: 52 },
+                    width: { xs: 42, sm: 52 },
+                    borderRadius: "50%",
+                    objectFit: "cover",
+                    border: "2px solid rgba(180, 130, 80, 0.3)",
+                    boxShadow: "0 4px 20px rgba(180, 130, 80, 0.15)",
+                    transition: "transform 0.3s ease",
+                    "&:hover": {
+                      transform: "scale(1.05)",
+                    },
                   }}
-                >
-                  DÉCIMO ROLLO
-                </Typography>
-                <Typography
-                  variant="caption"
-                  sx={{
-                    fontSize: { xs: "0.5rem", sm: "0.6rem" },
-                    letterSpacing: "0.4em",
-                    color: "#8B6B4A",
-                    fontWeight: 300,
-                    textTransform: "uppercase",
-                    fontFamily: '"Cormorant Garamond", serif',
-                  }}
-                >
-                  Sushi & Japanese Cuisine
-                </Typography>
-              </Box>
-            </motion.div>
+                />
+                <Box sx={{ display: "flex", flexDirection: "column" }}>
+                  <Typography
+                    variant="h5"
+                    sx={{
+                      fontFamily: '"Playfair Display", "Georgia", serif',
+                      fontWeight: 700,
+                      fontSize: { xs: "1.1rem", sm: "1.4rem" },
+                      letterSpacing: "0.15em",
+                      lineHeight: 1.1,
+                      color: "#2C1810",
+                      textShadow: "0 1px 2px rgba(0,0,0,0.05)",
+                    }}
+                  >
+                    DÉCIMO ROLLO
+                  </Typography>
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      fontSize: { xs: "0.5rem", sm: "0.6rem" },
+                      letterSpacing: "0.4em",
+                      color: "#8B6B4A",
+                      fontWeight: 300,
+                      textTransform: "uppercase",
+                      fontFamily: '"Cormorant Garamond", serif',
+                    }}
+                  >
+                    Sushi & Japanese Cuisine
+                  </Typography>
+                </Box>
+              </motion.div>
+            </Box>
 
             {!isMobile ? (
               <Box sx={{ display: "flex", gap: 1.5, alignItems: "center" }}>
@@ -124,7 +174,7 @@ const Navbar: React.FC = () => {
                     transition={{ delay: index * 0.08, duration: 0.4 }}
                   >
                     <Button
-                      href={item.href}
+                      onClick={() => handleNavigation(item.id)}
                       sx={{
                         color: "#2C1810",
                         fontSize: "0.85rem",
@@ -262,14 +312,13 @@ const Navbar: React.FC = () => {
           {menuItems.map((item) => (
             <ListItem
               key={item.label}
-              onClick={handleDrawerToggle}
-              component="a"
-              href={item.href}
+              onClick={() => handleNavigation(item.id)}
               sx={{
                 justifyContent: "center",
                 padding: "14px 0",
                 transition: "all 0.3s ease",
                 borderRadius: "8px",
+                cursor: "pointer",
                 "&:hover": {
                   backgroundColor: "rgba(196, 154, 108, 0.08)",
                   transform: "translateX(4px)",

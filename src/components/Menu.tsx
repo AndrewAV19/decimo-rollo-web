@@ -10,8 +10,10 @@ import {
   Divider,
   Stack,
   Rating,
+  Button,
 } from "@mui/material";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import LocalDiningIcon from "@mui/icons-material/LocalDining";
 import StarIcon from "@mui/icons-material/Star";
 import EastIcon from "@mui/icons-material/East";
@@ -388,13 +390,19 @@ const Menu: React.FC = () => {
           viewport={{ once: true }}
           style={{ textAlign: "center", marginTop: 48 }}
         >
-          <Box
+          <Button
+            component={Link}
+            to="/menu-completo"
             sx={{
               display: "inline-flex",
               alignItems: "center",
               gap: 2,
               cursor: "pointer",
               transition: "all 0.3s ease",
+              textDecoration: "none",
+              background: "none",
+              border: "none",
+              padding: 0,
               "&:hover": {
                 gap: 3,
               },
@@ -413,7 +421,7 @@ const Menu: React.FC = () => {
               Ver Menú Completo
             </Typography>
             <EastIcon sx={{ color: "#C49A6C", fontSize: 20 }} />
-          </Box>
+          </Button>
         </motion.div>
       </Container>
     </Box>
