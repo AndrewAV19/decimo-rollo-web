@@ -13,14 +13,18 @@ import { motion } from "framer-motion";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import YouTubeIcon from "@mui/icons-material/YouTube";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Footer: React.FC = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const footerLinks = {
     Navegación: [
-      { label: "Inicio", href: "#inicio" },
-      { label: "Menú", href: "#menu" },
-      { label: "Promociones", href: "#promociones" },
-      { label: "Contacto", href: "#contact" },
+      { label: "Inicio", id: "inicio" },
+      { label: "Menú", id: "menu" },
+      { label: "Promociones", id: "promociones" },
+      { label: "Contacto", id: "contact" },
     ],
     Información: [
       "Política de Privacidad",
@@ -28,6 +32,40 @@ const Footer: React.FC = () => {
       "Preguntas Frecuentes",
     ],
     Contacto: ["Dirección", "Teléfono", "Email", "Horario"],
+  };
+
+  const handleNavigation = (id: string) => {
+    if (location.pathname === "/") {
+      const element = document.getElementById(id);
+      if (element) {
+        const navbarHeight = 80;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition =
+          elementPosition + window.pageYOffset - navbarHeight;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        });
+      }
+    } else {
+      navigate("/");
+
+      setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) {
+          const navbarHeight = 80;
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition =
+            elementPosition + window.pageYOffset - navbarHeight;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+          });
+        }
+      }, 100);
+    }
   };
 
   return (
@@ -75,7 +113,15 @@ const Footer: React.FC = () => {
                 transition={{ duration: 0.6 }}
                 viewport={{ once: true }}
               >
-                <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 2,
+                    cursor: "pointer",
+                  }}
+                  onClick={() => handleNavigation("inicio")}
+                >
                   <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
                     <Box
                       component="img"
@@ -223,10 +269,9 @@ const Footer: React.FC = () => {
                 </Typography>
                 <Stack spacing={1.5}>
                   {footerLinks["Navegación"].map((link) => (
-                    <Link
+                    <Typography
                       key={link.label}
-                      href={link.href}
-                      underline="none"
+                      onClick={() => handleNavigation(link.id)}
                       sx={{
                         fontFamily: '"Cormorant Garamond", serif',
                         color: "rgba(245, 237, 232, 0.6)",
@@ -242,7 +287,7 @@ const Footer: React.FC = () => {
                       }}
                     >
                       {link.label}
-                    </Link>
+                    </Typography>
                   ))}
                 </Stack>
               </motion.div>
@@ -280,10 +325,11 @@ const Footer: React.FC = () => {
                 </Typography>
                 <Stack spacing={1.5}>
                   {footerLinks["Información"].map((link) => (
-                    <Link
+                    <Typography
                       key={link}
-                      href="#"
-                      underline="none"
+                      onClick={() => {
+                        /* Puedes agregar lógica aquí */
+                      }}
                       sx={{
                         fontFamily: '"Cormorant Garamond", serif',
                         color: "rgba(245, 237, 232, 0.6)",
@@ -291,6 +337,7 @@ const Footer: React.FC = () => {
                         fontWeight: 300,
                         transition: "all 0.3s ease",
                         letterSpacing: "0.05em",
+                        cursor: "pointer",
                         "&:hover": {
                           color: "#C49A6C",
                           transform: "translateX(4px)",
@@ -298,7 +345,7 @@ const Footer: React.FC = () => {
                       }}
                     >
                       {link}
-                    </Link>
+                    </Typography>
                   ))}
                 </Stack>
               </motion.div>

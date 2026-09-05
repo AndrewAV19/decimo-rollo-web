@@ -10,22 +10,12 @@ import {
   Divider,
   Stack,
   Rating,
-  Button,
-  useMediaQuery,
-  IconButton,
-  Drawer,
-  Slider,
-  FormGroup,
-  FormControlLabel,
-  Checkbox,
   TextField,
   InputAdornment,
 } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
 import LocalDiningIcon from "@mui/icons-material/LocalDining";
 import StarIcon from "@mui/icons-material/Star";
-import CloseIcon from "@mui/icons-material/Close";
-import FilterListIcon from "@mui/icons-material/FilterList";
 import SearchIcon from "@mui/icons-material/Search";
 
 interface MenuItem {
@@ -90,8 +80,7 @@ const allMenuItems: MenuItem[] = [
   {
     id: 5,
     name: "Nigiri Variado",
-    description:
-      "Selección de 6 nigiris con diferentes pescados y mariscos",
+    description: "Selección de 6 nigiris con diferentes pescados y mariscos",
     price: "$42",
     image: "🍙",
     tag: "Clásico",
@@ -122,8 +111,7 @@ const allMenuItems: MenuItem[] = [
   {
     id: 8,
     name: "Ceviche Nikkei",
-    description:
-      "Fusión peruano-japonesa con pescado fresco y leche de tigre",
+    description: "Fusión peruano-japonesa con pescado fresco y leche de tigre",
     price: "$28",
     image: "🐟",
     tag: "Especial",
@@ -176,127 +164,13 @@ const allMenuItems: MenuItem[] = [
 
 const FullMenu: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [priceRange, setPriceRange] = useState<number[]>([0, 50]);
-  const [showAvailable, setShowAvailable] = useState(true);
-  const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
-  const isMobile = useMediaQuery("(max-width:600px)");
 
   const filteredItems = allMenuItems.filter((item) => {
     const matchesSearch =
       item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesPrice =
-      parseFloat(item.price.replace("$", "")) >= priceRange[0] &&
-      parseFloat(item.price.replace("$", "")) <= priceRange[1];
-    const matchesAvailability = !showAvailable || item.available;
-    return matchesSearch && matchesPrice && matchesAvailability;
+    return matchesSearch;
   });
-
-  const filterContent = (
-    <Box sx={{ p: { xs: 2, md: 0 } }}>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          mb: 3,
-        }}
-      >
-        <Typography
-          sx={{
-            fontFamily: '"Playfair Display", serif',
-            fontWeight: 700,
-            color: "#2C1810",
-            fontSize: "1.2rem",
-          }}
-        >
-          Filtros
-        </Typography>
-        {isMobile && (
-          <IconButton onClick={() => setMobileFilterOpen(false)}>
-            <CloseIcon />
-          </IconButton>
-        )}
-      </Box>
-
-      <Box sx={{ mb: 3 }}>
-        <Typography
-          sx={{
-            fontFamily: '"Cormorant Garamond", serif',
-            color: "rgba(44,24,16,0.6)",
-            fontSize: "0.85rem",
-            mb: 1,
-            fontWeight: 600,
-          }}
-        >
-          Rango de Precio
-        </Typography>
-        <Slider
-          value={priceRange}
-          onChange={(_, newValue) => setPriceRange(newValue as number[])}
-          valueLabelDisplay="auto"
-          min={0}
-          max={50}
-          sx={{
-            color: "#C49A6C",
-            "& .MuiSlider-thumb": {
-              "&:hover, &.Mui-focusVisible": {
-                boxShadow: "0 0 0 8px rgba(196,154,108,0.16)",
-              },
-            },
-          }}
-        />
-        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Typography
-            sx={{
-              fontFamily: '"Cormorant Garamond", serif',
-              fontSize: "0.8rem",
-              color: "rgba(44,24,16,0.4)",
-            }}
-          >
-            ${priceRange[0]}
-          </Typography>
-          <Typography
-            sx={{
-              fontFamily: '"Cormorant Garamond", serif',
-              fontSize: "0.8rem",
-              color: "rgba(44,24,16,0.4)",
-            }}
-          >
-            ${priceRange[1]}
-          </Typography>
-        </Box>
-      </Box>
-
-      <FormGroup>
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={showAvailable}
-              onChange={(e) => setShowAvailable(e.target.checked)}
-              sx={{
-                color: "rgba(196,154,108,0.3)",
-                "&.Mui-checked": {
-                  color: "#C49A6C",
-                },
-              }}
-            />
-          }
-          label={
-            <Typography
-              sx={{
-                fontFamily: '"Cormorant Garamond", serif',
-                fontSize: "0.9rem",
-                color: "#2C1810",
-              }}
-            >
-              Solo disponibles
-            </Typography>
-          }
-        />
-      </FormGroup>
-    </Box>
-  );
 
   return (
     <Box
@@ -385,67 +259,37 @@ const FullMenu: React.FC = () => {
         </motion.div>
 
         <Box sx={{ mb: 4 }}>
-          <Grid container spacing={2} alignItems="center">
-            <Grid item xs={12} md={8}>
-              <TextField
-                placeholder="Buscar en el menú..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                fullWidth
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <SearchIcon sx={{ color: "rgba(44,24,16,0.3)" }} />
-                    </InputAdornment>
-                  ),
-                }}
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    borderRadius: "12px",
-                    backgroundColor: "#FFFFFF",
-                    "& fieldset": {
-                      borderColor: "rgba(196,154,108,0.15)",
-                    },
-                    "&:hover fieldset": {
-                      borderColor: "rgba(196,154,108,0.3)",
-                    },
-                    "&.Mui-focused fieldset": {
-                      borderColor: "#C49A6C",
-                    },
-                  },
-                }}
-              />
-            </Grid>
-            <Grid
-              item
-              xs={12}
-              md={4}
-              sx={{
-                display: "flex",
-                justifyContent: { xs: "flex-start", md: "flex-end" },
-              }}
-            >
-              {isMobile && (
-                <Button
-                  variant="outlined"
-                  startIcon={<FilterListIcon />}
-                  onClick={() => setMobileFilterOpen(true)}
-                  sx={{
-                    borderColor: "rgba(196,154,108,0.2)",
-                    color: "#2C1810",
-                    fontFamily: '"Cormorant Garamond", serif',
-                    borderRadius: "12px",
-                    "&:hover": {
-                      borderColor: "#C49A6C",
-                      backgroundColor: "rgba(196,154,108,0.04)",
-                    },
-                  }}
-                >
-                  Filtros
-                </Button>
-              )}
-            </Grid>
-          </Grid>
+          <TextField
+            placeholder="Buscar en el menú..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            fullWidth
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon sx={{ color: "rgba(44,24,16,0.3)" }} />
+                </InputAdornment>
+              ),
+            }}
+            sx={{
+              maxWidth: { md: "60%" },
+              mx: "auto",
+              display: "block",
+              "& .MuiOutlinedInput-root": {
+                borderRadius: "12px",
+                backgroundColor: "#FFFFFF",
+                "& fieldset": {
+                  borderColor: "rgba(196,154,108,0.15)",
+                },
+                "&:hover fieldset": {
+                  borderColor: "rgba(196,154,108,0.3)",
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: "#C49A6C",
+                },
+              },
+            }}
+          />
         </Box>
 
         <Grid container spacing={3}>
@@ -495,7 +339,7 @@ const FullMenu: React.FC = () => {
                         mt: 0.5,
                       }}
                     >
-                      Prueba con otros filtros o busca otro plato
+                      Prueba buscando otro plato
                     </Typography>
                   </Box>
                 ) : (
@@ -757,46 +601,9 @@ const FullMenu: React.FC = () => {
                 )}
               </motion.div>
             </AnimatePresence>
-
           </Grid>
         </Grid>
       </Container>
-
-      <Drawer
-        anchor="bottom"
-        open={mobileFilterOpen}
-        onClose={() => setMobileFilterOpen(false)}
-        PaperProps={{
-          sx: {
-            borderRadius: "24px 24px 0 0",
-            padding: 3,
-            maxHeight: "80vh",
-          },
-        }}
-      >
-        {filterContent}
-        <Button
-          fullWidth
-          variant="contained"
-          onClick={() => setMobileFilterOpen(false)}
-          sx={{
-            backgroundColor: "#C49A6C",
-            color: "#FFFFFF",
-            fontFamily: '"Cormorant Garamond", serif',
-            fontSize: "0.9rem",
-            fontWeight: 600,
-            textTransform: "none",
-            borderRadius: "12px",
-            padding: "12px",
-            mt: 2,
-            "&:hover": {
-              backgroundColor: "#D4B08C",
-            },
-          }}
-        >
-          Aplicar filtros
-        </Button>
-      </Drawer>
     </Box>
   );
 };
