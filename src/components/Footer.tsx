@@ -333,6 +333,30 @@ const Footer: React.FC = () => {
           >
             © {new Date().getFullYear()} Décimo Rollo. Todos los derechos
             reservados.
+            <Box
+              component="span"
+              sx={{
+                display: "block",
+                mt: 0.5,
+              }}
+            >
+              Diseñado y desarrollado por{" "}
+              <Link
+                href="https://alonsdev.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                underline="none"
+                sx={{
+                  color: "rgba(196, 154, 108, 0.7)",
+                  transition: "color 0.3s ease",
+                  "&:hover": {
+                    color: "#C49A6C",
+                  },
+                }}
+              >
+                AlonsDev
+              </Link>
+            </Box>
           </Typography>
 
           <Box
