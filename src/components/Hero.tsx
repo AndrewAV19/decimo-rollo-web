@@ -2,6 +2,154 @@ import React from "react";
 import { Box, Container, Typography, Button, Grid, Stack } from "@mui/material";
 import { motion } from "framer-motion";
 
+const PickingNigiri: React.FC = () => {
+  const timing = {
+    duration: 3.6,
+    times: [0, 0.32, 0.5, 0.78, 1],
+    repeat: Infinity,
+    ease: "easeInOut" as const,
+  };
+
+  return (
+    <svg
+      viewBox="0 0 320 320"
+      width="100%"
+      height="100%"
+      role="img"
+      aria-label="Palillos tomando un nigiri"
+    >
+      <defs>
+        <radialGradient id="plateShade" cx="45%" cy="35%" r="65%">
+          <stop offset="0%" stopColor="#2A241C" />
+          <stop offset="100%" stopColor="#161310" />
+        </radialGradient>
+        <radialGradient id="riceShadeHero" cx="35%" cy="28%" r="75%">
+          <stop offset="0%" stopColor="#FFFDF7" />
+          <stop offset="60%" stopColor="#EFE3C8" />
+          <stop offset="100%" stopColor="#D8C4A0" />
+        </radialGradient>
+        <linearGradient
+          id="salmonShadeHero"
+          x1="0%"
+          y1="0%"
+          x2="100%"
+          y2="100%"
+        >
+          <stop offset="0%" stopColor="#F2A177" />
+          <stop offset="45%" stopColor="#E07A50" />
+          <stop offset="100%" stopColor="#B85338" />
+        </linearGradient>
+        <linearGradient id="chopstickShade" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#D9B36C" />
+          <stop offset="100%" stopColor="#8F6B36" />
+        </linearGradient>
+        <radialGradient id="plateShadow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="rgba(0,0,0,0.4)" />
+          <stop offset="100%" stopColor="rgba(0,0,0,0)" />
+        </radialGradient>
+      </defs>
+
+      <ellipse cx="160" cy="248" rx="118" ry="16" fill="url(#plateShadow)" />
+      <ellipse cx="160" cy="230" rx="132" ry="34" fill="url(#plateShade)" />
+      <ellipse
+        cx="160"
+        cy="226"
+        rx="132"
+        ry="34"
+        fill="none"
+        stroke="#C79A56"
+        strokeOpacity="0.35"
+        strokeWidth="1.5"
+      />
+      <ellipse
+        cx="160"
+        cy="226"
+        rx="94"
+        ry="22"
+        fill="none"
+        stroke="#C79A56"
+        strokeOpacity="0.18"
+        strokeWidth="1"
+      />
+
+      <circle cx="228" cy="212" r="6" fill="#7C8B54" opacity="0.7" />
+      <circle cx="242" cy="220" r="4.5" fill="#B85338" opacity="0.6" />
+
+      <motion.g animate={{ y: [0, 0, 0, -22, 0] }} transition={timing}>
+        <path
+          d="M92 214 C92 192 118 178 154 178 C190 178 216 192 216 214 C216 230 190 240 154 240 C118 240 92 230 92 214Z"
+          fill="url(#riceShadeHero)"
+        />
+        {[
+          [112, 206],
+          [128, 220],
+          [144, 200],
+          [160, 224],
+          [176, 204],
+          [192, 218],
+          [120, 230],
+          [168, 232],
+        ].map(([x, y], i) => (
+          <ellipse
+            key={i}
+            cx={x}
+            cy={y}
+            rx="3.6"
+            ry="2.4"
+            fill="#FFFDF9"
+            opacity="0.85"
+          />
+        ))}
+        <path
+          d="M98 198 C100 178 124 162 154 162 C184 162 208 178 210 198 C210 208 194 214 154 214 C114 214 98 208 98 198Z"
+          fill="url(#salmonShadeHero)"
+        />
+        <path
+          d="M118 174 C134 168 174 168 190 174"
+          fill="none"
+          stroke="#8F4128"
+          strokeWidth="1.3"
+          opacity="0.4"
+        />
+        <path
+          d="M92 214 C92 224 118 232 154 232 C190 232 216 224 216 214 L216 206 C216 216 190 224 154 224 C118 224 92 216 92 206Z"
+          fill="#1D1B16"
+          opacity="0.9"
+        />
+      </motion.g>
+
+      <motion.g
+        animate={{ y: [-46, -46, -8, -30, -46], rotate: [-4, -4, 0, -2, -4] }}
+        transition={timing}
+        style={{ transformOrigin: "154px 214px" }}
+      >
+        <motion.rect
+          x="150.5"
+          y="70"
+          width="5"
+          height="130"
+          rx="2.5"
+          fill="url(#chopstickShade)"
+          animate={{ rotate: [-9, -9, -5.5, -5.5, -9] }}
+          transition={timing}
+          style={{ transformOrigin: "153px 200px" }}
+        />
+        <motion.rect
+          x="164.5"
+          y="70"
+          width="5"
+          height="130"
+          rx="2.5"
+          fill="url(#chopstickShade)"
+          animate={{ rotate: [9, 9, 5.5, 5.5, 9] }}
+          transition={timing}
+          style={{ transformOrigin: "167px 200px" }}
+        />
+      </motion.g>
+    </svg>
+  );
+};
+
 const Hero: React.FC = () => {
   return (
     <Box
@@ -184,15 +332,14 @@ const Hero: React.FC = () => {
 
           <Grid item xs={12} md={6}>
             <motion.div
-              initial={{ opacity: 0, scale: 0.85, rotate: -5 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              transition={{ duration: 0.9, delay: 0.2, ease: "easeOut" }}
+              initial={{ opacity: 0, scale: 0.92 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.9, delay: 0.15, ease: "easeOut" }}
             >
               <Box
                 sx={{
                   width: "100%",
-                  height: { xs: 300, sm: 380, md: 450, lg: 520 },
-                  position: "relative",
+                  height: { xs: 320, sm: 400, md: 460, lg: 520 },
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -200,103 +347,11 @@ const Hero: React.FC = () => {
               >
                 <Box
                   sx={{
-                    position: "absolute",
-                    width: { xs: "90%", sm: "85%", md: "80%" },
-                    height: { xs: "90%", sm: "85%", md: "80%" },
-                    background:
-                      "radial-gradient(circle at 30% 40%, rgba(196, 154, 108, 0.15) 0%, transparent 70%)",
-                    borderRadius: "60% 40% 50% 50% / 50% 60% 40% 50%",
-                    animation: "float 10s ease-in-out infinite",
-                    "@keyframes float": {
-                      "0%, 100%": {
-                        transform: "translateY(0px) rotate(0deg)",
-                      },
-                      "50%": {
-                        transform: "translateY(-20px) rotate(2deg)",
-                      },
-                    },
-                  }}
-                />
-
-                <Box
-                  sx={{
-                    width: { xs: "85%", sm: "80%", md: "75%" },
-                    height: { xs: "85%", sm: "80%", md: "75%" },
-                    background:
-                      "linear-gradient(145deg, rgba(196, 154, 108, 0.1) 0%, rgba(180, 130, 80, 0.05) 100%)",
-                    borderRadius: "50% 50% 40% 60% / 60% 40% 50% 50%",
-                    border: "1px solid rgba(196, 154, 108, 0.15)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    position: "relative",
-                    overflow: "hidden",
-                    backdropFilter: "blur(2px)",
+                    width: { xs: 280, sm: 340, md: 400 },
+                    height: { xs: 280, sm: 340, md: 400 },
                   }}
                 >
-                  <Box
-                    component="span"
-                    sx={{
-                      fontSize: {
-                        xs: "6rem",
-                        sm: "8rem",
-                        md: "10rem",
-                        lg: "12rem",
-                      },
-                      opacity: 0.15,
-                      position: "absolute",
-                      transform: "rotate(-10deg)",
-                    }}
-                  >
-                    🍣
-                  </Box>
-
-                  <Box
-                    component="span"
-                    sx={{
-                      fontSize: { xs: "4rem", sm: "5rem", md: "6rem" },
-                      opacity: 0.9,
-                      filter:
-                        "drop-shadow(0 8px 30px rgba(196, 154, 108, 0.2))",
-                      animation: "bob 4s ease-in-out infinite",
-                      "@keyframes bob": {
-                        "0%, 100%": { transform: "translateY(0px)" },
-                        "50%": { transform: "translateY(-10px)" },
-                      },
-                    }}
-                  >
-                    🍱
-                  </Box>
-
-                  <Box
-                    component="span"
-                    sx={{
-                      fontSize: { xs: "2.5rem", sm: "3rem", md: "3.5rem" },
-                      opacity: 0.6,
-                      position: "absolute",
-                      bottom: { xs: "10%", sm: "15%" },
-                      right: { xs: "10%", sm: "15%" },
-                      animation: "bob 5s ease-in-out infinite 1s",
-                      filter:
-                        "drop-shadow(0 4px 20px rgba(196, 154, 108, 0.15))",
-                    }}
-                  >
-                    🥢
-                  </Box>
-
-                  <Box
-                    component="span"
-                    sx={{
-                      fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
-                      opacity: 0.4,
-                      position: "absolute",
-                      top: { xs: "15%", sm: "20%" },
-                      left: { xs: "10%", sm: "15%" },
-                      animation: "bob 6s ease-in-out infinite 2s",
-                    }}
-                  >
-                    ✧
-                  </Box>
+                  <PickingNigiri />
                 </Box>
               </Box>
             </motion.div>

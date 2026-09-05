@@ -20,7 +20,7 @@ const Footer: React.FC = () => {
       { label: "Inicio", href: "#inicio" },
       { label: "Menú", href: "#menu" },
       { label: "Promociones", href: "#promociones" },
-      { label: "Nosotros", href: "#nosotros" },
+      { label: "Contacto", href: "#contact" },
     ],
     Información: [
       "Política de Privacidad",
