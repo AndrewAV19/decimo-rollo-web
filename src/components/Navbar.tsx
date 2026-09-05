@@ -23,10 +23,10 @@ const Navbar: React.FC = () => {
   const isMobile = useMediaQuery("(max-width:900px)");
 
   const menuItems = [
-    { label: "Inicio", href: "#" },
-    { label: "Menú", href: "#" },
-    { label: "Especiales", href: "#" },
-    { label: "Nosotros", href: "#" },
+    { label: "Inicio", href: "#inicio" },
+    { label: "Menú", href: "#menu" },
+    { label: "Promociones", href: "#promociones" },
+    { label: "Nosotros", href: "#nosotros" },
   ];
 
   const handleDrawerToggle = () => {

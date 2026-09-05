@@ -16,7 +16,12 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 
 const Footer: React.FC = () => {
   const footerLinks = {
-    Navegación: ["Inicio", "Menú", "Especiales", "Nosotros"],
+    Navegación: [
+      { label: "Inicio", href: "#inicio" },
+      { label: "Menú", href: "#menu" },
+      { label: "Promociones", href: "#promociones" },
+      { label: "Nosotros", href: "#nosotros" },
+    ],
     Información: [
       "Política de Privacidad",
       "Términos y Condiciones",
@@ -219,8 +224,8 @@ const Footer: React.FC = () => {
                 <Stack spacing={1.5}>
                   {footerLinks["Navegación"].map((link) => (
                     <Link
-                      key={link}
-                      href="#"
+                      key={link.label}
+                      href={link.href}
                       underline="none"
                       sx={{
                         fontFamily: '"Cormorant Garamond", serif',
@@ -229,13 +234,14 @@ const Footer: React.FC = () => {
                         fontWeight: 300,
                         transition: "all 0.3s ease",
                         letterSpacing: "0.05em",
+                        cursor: "pointer",
                         "&:hover": {
                           color: "#C49A6C",
                           transform: "translateX(4px)",
                         },
                       }}
                     >
-                      {link}
+                      {link.label}
                     </Link>
                   ))}
                 </Stack>

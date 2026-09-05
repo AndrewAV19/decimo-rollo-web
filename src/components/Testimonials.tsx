@@ -53,9 +53,9 @@ const initialTestimonials: Testimonial[] = [
     rating: 5,
     date: "12 de enero, 2026",
     comment:
-      "Un lugar elegante con una atmósfera acogedora. Los rolls especiales son una obra de arte culinaria.",
+      "Un lugar elegante con una atmósfera acogedora. Los rolls Promociones son una obra de arte culinaria.",
     verified: true,
-    dish: "Rolls Especiales",
+    dish: "Rolls Promociones",
   },
   {
     id: 3,

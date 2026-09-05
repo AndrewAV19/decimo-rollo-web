@@ -28,7 +28,7 @@ const menuItems = [
     category: "Premium",
   },
   {
-    name: "Rolls Especiales",
+    name: "Rolls Promociones",
     description:
       "Ocho rolls artesanales con ingredientes exclusivos y toques de autor",
     price: "$38",
