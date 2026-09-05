@@ -8,7 +8,6 @@ import Hero from "./components/Hero";
 import Menu from "./components/Menu";
 import Testimonials from "./components/Testimonials";
 import Footer from "./components/Footer";
-import MissionVision from "./components/MissionVision";
 import Contact from "./components/Contact";
 import Promotions from "./components/Promotions";
 import FullMenu from "./components/FullMenu";
@@ -51,9 +50,6 @@ function App() {
                   <Contact />
                 </Box>
 
-                <Box id="nosotros">
-                  <MissionVision />
-                </Box>
               </>
             }
           />

@@ -6,7 +6,6 @@ import {
   Grid,
   IconButton,
   Stack,
-  Divider,
   Link,
 } from "@mui/material";
 import { motion } from "framer-motion";
@@ -14,57 +13,60 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import { useLocation, useNavigate } from "react-router-dom";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import PhoneIcon from "@mui/icons-material/Phone";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+
+const GOLD = "#C49A6C";
+const GOLD_SOFT = "rgba(196, 154, 108, 0.35)";
+const CREAM = "#F5EDE8";
 
 const Footer: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const footerLinks = {
-    Navegación: [
-      { label: "Inicio", id: "inicio" },
-      { label: "Menú", id: "menu" },
-      { label: "Promociones", id: "promociones" },
-      { label: "Contacto", id: "contact" },
-    ],
-    Información: [
-      "Política de Privacidad",
-      "Términos y Condiciones",
-      "Preguntas Frecuentes",
-    ],
-    Contacto: ["Dirección", "Teléfono", "Email", "Horario"],
-  };
+  const navLinks = [
+    { label: "Inicio", id: "inicio" },
+    { label: "Menú", id: "menu" },
+    { label: "Promociones", id: "promociones" },
+    { label: "Contacto", id: "contact" },
+  ];
+
+  const contactInfo = [
+    {
+      icon: <LocationOnIcon sx={{ fontSize: 18 }} />,
+      value: "Calle Principal #123, Ciudad",
+      detail: "Colonia Centro, CP 12345",
+    },
+    {
+      icon: <PhoneIcon sx={{ fontSize: 18 }} />,
+      value: "(55) 1234-5678",
+      detail: "Pedidos",
+    },
+    {
+      icon: <AccessTimeIcon sx={{ fontSize: 18 }} />,
+      value: "12:00 PM – 11:00 PM",
+      detail: "Todos los días",
+    },
+  ];
 
   const handleNavigation = (id: string) => {
-    if (location.pathname === "/") {
+    const scrollToSection = () => {
       const element = document.getElementById(id);
       if (element) {
         const navbarHeight = 80;
         const elementPosition = element.getBoundingClientRect().top;
         const offsetPosition =
           elementPosition + window.pageYOffset - navbarHeight;
-
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: "smooth",
-        });
+        window.scrollTo({ top: offsetPosition, behavior: "smooth" });
       }
+    };
+
+    if (location.pathname === "/") {
+      scrollToSection();
     } else {
       navigate("/");
-
-      setTimeout(() => {
-        const element = document.getElementById(id);
-        if (element) {
-          const navbarHeight = 80;
-          const elementPosition = element.getBoundingClientRect().top;
-          const offsetPosition =
-            elementPosition + window.pageYOffset - navbarHeight;
-
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: "smooth",
-          });
-        }
-      }, 100);
+      setTimeout(scrollToSection, 100);
     }
   };
 
@@ -103,10 +105,10 @@ const Footer: React.FC = () => {
         }}
       />
 
-      <Container maxWidth="xl" sx={{ position: "relative", zIndex: 1 }}>
-        <Box sx={{ py: { xs: 6, md: 8 } }}>
-          <Grid container spacing={4}>
-            <Grid item xs={12} md={4}>
+      <Container maxWidth="lg" sx={{ position: "relative", zIndex: 1 }}>
+        <Box sx={{ pt: { xs: 8, md: 10 }, pb: { xs: 5, md: 6 } }}>
+          <Grid container spacing={{ xs: 6, md: 4 }}>
+            <Grid item xs={12} md={5}>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -116,174 +118,129 @@ const Footer: React.FC = () => {
                 <Box
                   sx={{
                     display: "flex",
-                    flexDirection: "column",
+                    alignItems: "center",
                     gap: 2,
+                    mb: 3,
                     cursor: "pointer",
+                    width: "fit-content",
                   }}
                   onClick={() => handleNavigation("inicio")}
                 >
-                  <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-                    <Box
-                      component="img"
-                      src="/images/logo.jpeg"
-                      alt="Décimo Rollo"
-                      sx={{
-                        height: 60,
-                        width: 60,
-                        borderRadius: "50%",
-                        objectFit: "cover",
-                        border: "2px solid rgba(196, 154, 108, 0.3)",
-                        boxShadow: "0 4px 20px rgba(196, 154, 108, 0.15)",
-                      }}
-                    />
-                    <Box>
-                      <Typography
-                        sx={{
-                          fontFamily: '"Playfair Display", serif',
-                          fontWeight: 700,
-                          fontSize: "1.4rem",
-                          letterSpacing: "0.15em",
-                          color: "#F5EDE8",
-                          lineHeight: 1.1,
-                        }}
-                      >
-                        DÉCIMO ROLLO
-                      </Typography>
-                      <Typography
-                        variant="caption"
-                        sx={{
-                          fontSize: "0.55rem",
-                          letterSpacing: "0.4em",
-                          color: "#C49A6C",
-                          fontWeight: 300,
-                          textTransform: "uppercase",
-                          fontFamily: '"Cormorant Garamond", serif',
-                        }}
-                      >
-                        Sushi & Japanese Cuisine
-                      </Typography>
-                    </Box>
-                  </Box>
-
-                  <Typography
+                  <Box
+                    component="img"
+                    src="/images/logo.jpeg"
+                    alt="Décimo Rollo"
                     sx={{
-                      fontFamily: '"Cormorant Garamond", serif',
-                      color: "rgba(245, 237, 232, 0.6)",
-                      fontSize: "0.95rem",
-                      fontWeight: 300,
-                      lineHeight: 1.8,
-                      maxWidth: 400,
+                      height: 52,
+                      width: 52,
+                      borderRadius: "50%",
+                      objectFit: "cover",
+                      border: `1px solid ${GOLD_SOFT}`,
                     }}
-                  >
-                    Una experiencia culinaria única donde la tradición japonesa
-                    se encuentra con la elegancia moderna.
-                  </Typography>
-
-                  <Stack direction="row" spacing={1.5}>
-                    <IconButton
+                  />
+                  <Box>
+                    <Typography
                       sx={{
-                        color: "rgba(245, 237, 232, 0.5)",
-                        padding: 1,
-                        border: "1px solid rgba(245, 237, 232, 0.1)",
-                        borderRadius: "50%",
-                        transition: "all 0.3s ease",
-                        "&:hover": {
-                          color: "#C49A6C",
-                          borderColor: "#C49A6C",
-                          backgroundColor: "rgba(196, 154, 108, 0.1)",
-                          transform: "translateY(-3px)",
-                        },
+                        fontFamily: '"Playfair Display", serif',
+                        fontWeight: 600,
+                        fontSize: "1.3rem",
+                        letterSpacing: "0.08em",
+                        color: CREAM,
+                        lineHeight: 1,
                       }}
                     >
-                      <FacebookIcon sx={{ fontSize: 22 }} />
-                    </IconButton>
-                    <IconButton
+                      Décimo Rollo
+                    </Typography>
+                    <Typography
                       sx={{
-                        color: "rgba(245, 237, 232, 0.5)",
-                        padding: 1,
-                        border: "1px solid rgba(245, 237, 232, 0.1)",
-                        borderRadius: "50%",
-                        transition: "all 0.3s ease",
-                        "&:hover": {
-                          color: "#C49A6C",
-                          borderColor: "#C49A6C",
-                          backgroundColor: "rgba(196, 154, 108, 0.1)",
-                          transform: "translateY(-3px)",
-                        },
+                        fontSize: "0.72rem",
+                        letterSpacing: "0.06em",
+                        color: GOLD,
+                        fontWeight: 400,
+                        fontFamily: '"Cormorant Garamond", serif',
+                        fontStyle: "italic",
+                        mt: 0.3,
                       }}
                     >
-                      <InstagramIcon sx={{ fontSize: 22 }} />
-                    </IconButton>
-
-                    <IconButton
-                      sx={{
-                        color: "rgba(245, 237, 232, 0.5)",
-                        padding: 1,
-                        border: "1px solid rgba(245, 237, 232, 0.1)",
-                        borderRadius: "50%",
-                        transition: "all 0.3s ease",
-                        "&:hover": {
-                          color: "#C49A6C",
-                          borderColor: "#C49A6C",
-                          backgroundColor: "rgba(196, 154, 108, 0.1)",
-                          transform: "translateY(-3px)",
-                        },
-                      }}
-                    >
-                      <YouTubeIcon sx={{ fontSize: 22 }} />
-                    </IconButton>
-                  </Stack>
+                      Sushi &amp; cocina japonesa
+                    </Typography>
+                  </Box>
                 </Box>
+
+                <Typography
+                  sx={{
+                    fontFamily: '"Cormorant Garamond", serif',
+                    color: "rgba(245, 237, 232, 0.55)",
+                    fontSize: "1.05rem",
+                    fontWeight: 300,
+                    lineHeight: 1.75,
+                    maxWidth: 380,
+                    mb: 3.5,
+                  }}
+                >
+                  Donde la tradición japonesa se encuentra con la elegancia
+                  contemporánea, plato a plato.
+                </Typography>
+
+                <Stack direction="row" spacing={1}>
+                  {[FacebookIcon, InstagramIcon, YouTubeIcon].map((Icon, i) => (
+                    <IconButton
+                      key={i}
+                      size="small"
+                      sx={{
+                        color: "rgba(245, 237, 232, 0.45)",
+                        width: 36,
+                        height: 36,
+                        border: "1px solid rgba(245, 237, 232, 0.12)",
+                        borderRadius: "50%",
+                        transition: "color 0.25s ease, border-color 0.25s ease",
+                        "&:hover": {
+                          color: GOLD,
+                          borderColor: GOLD_SOFT,
+                        },
+                      }}
+                    >
+                      <Icon sx={{ fontSize: 17 }} />
+                    </IconButton>
+                  ))}
+                </Stack>
               </motion.div>
             </Grid>
 
-            <Grid item xs={12} sm={6} md={2}>
+            <Grid item xs={6} md={2.5}>
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
+                transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
                 viewport={{ once: true }}
               >
                 <Typography
                   sx={{
                     fontFamily: '"Playfair Display", serif',
-                    fontWeight: 600,
-                    color: "#F5EDE8",
-                    fontSize: "1rem",
-                    letterSpacing: "0.1em",
+                    fontWeight: 500,
+                    color: CREAM,
+                    fontSize: "0.95rem",
+                    letterSpacing: "0.04em",
                     mb: 2.5,
-                    position: "relative",
-                    "&::after": {
-                      content: '""',
-                      position: "absolute",
-                      bottom: -8,
-                      left: 0,
-                      width: 30,
-                      height: 2,
-                      backgroundColor: "#C49A6C",
-                      opacity: 0.5,
-                    },
                   }}
                 >
                   Navegación
                 </Typography>
-                <Stack spacing={1.5}>
-                  {footerLinks["Navegación"].map((link) => (
+                <Stack spacing={1.4}>
+                  {navLinks.map((link) => (
                     <Typography
                       key={link.label}
                       onClick={() => handleNavigation(link.id)}
                       sx={{
                         fontFamily: '"Cormorant Garamond", serif',
-                        color: "rgba(245, 237, 232, 0.6)",
-                        fontSize: "0.95rem",
-                        fontWeight: 300,
-                        transition: "all 0.3s ease",
-                        letterSpacing: "0.05em",
+                        color: "rgba(245, 237, 232, 0.55)",
+                        fontSize: "0.98rem",
+                        fontWeight: 400,
+                        letterSpacing: "0.02em",
                         cursor: "pointer",
-                        "&:hover": {
-                          color: "#C49A6C",
-                          transform: "translateX(4px)",
-                        },
+                        width: "fit-content",
+                        transition: "color 0.25s ease",
+                        "&:hover": { color: GOLD },
                       }}
                     >
                       {link.label}
@@ -293,59 +250,61 @@ const Footer: React.FC = () => {
               </motion.div>
             </Grid>
 
-            <Grid item xs={12} sm={6} md={3}>
+            <Grid item xs={6} md={4.5}>
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
+                transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
                 viewport={{ once: true }}
               >
                 <Typography
                   sx={{
                     fontFamily: '"Playfair Display", serif',
-                    fontWeight: 600,
-                    color: "#F5EDE8",
-                    fontSize: "1rem",
-                    letterSpacing: "0.1em",
+                    fontWeight: 500,
+                    color: CREAM,
+                    fontSize: "0.95rem",
+                    letterSpacing: "0.04em",
                     mb: 2.5,
-                    position: "relative",
-                    "&::after": {
-                      content: '""',
-                      position: "absolute",
-                      bottom: -8,
-                      left: 0,
-                      width: 30,
-                      height: 2,
-                      backgroundColor: "#C49A6C",
-                      opacity: 0.5,
-                    },
                   }}
                 >
-                  Información
+                  Visítanos
                 </Typography>
-                <Stack spacing={1.5}>
-                  {footerLinks["Información"].map((link) => (
-                    <Typography
-                      key={link}
-                      onClick={() => {
-                        /* Puedes agregar lógica aquí */
-                      }}
+                <Stack spacing={2}>
+                  {contactInfo.map((item, index) => (
+                    <Box
+                      key={index}
                       sx={{
-                        fontFamily: '"Cormorant Garamond", serif',
-                        color: "rgba(245, 237, 232, 0.6)",
-                        fontSize: "0.95rem",
-                        fontWeight: 300,
-                        transition: "all 0.3s ease",
-                        letterSpacing: "0.05em",
-                        cursor: "pointer",
-                        "&:hover": {
-                          color: "#C49A6C",
-                          transform: "translateX(4px)",
-                        },
+                        display: "flex",
+                        gap: 1.4,
+                        alignItems: "flex-start",
                       }}
                     >
-                      {link}
-                    </Typography>
+                      <Box sx={{ color: GOLD, mt: 0.4 }}>{item.icon}</Box>
+                      <Box>
+                        <Typography
+                          sx={{
+                            fontFamily: '"Cormorant Garamond", serif',
+                            color: CREAM,
+                            fontSize: "0.98rem",
+                            fontWeight: 400,
+                            lineHeight: 1.4,
+                          }}
+                        >
+                          {item.value}
+                        </Typography>
+                        <Typography
+                          sx={{
+                            fontFamily: '"Cormorant Garamond", serif',
+                            color: "rgba(245, 237, 232, 0.4)",
+                            fontSize: "0.85rem",
+                            fontWeight: 300,
+                            mt: 0.2,
+                          }}
+                        >
+                          {item.detail}
+                        </Typography>
+                      </Box>
+                    </Box>
                   ))}
                 </Stack>
               </motion.div>
@@ -353,11 +312,37 @@ const Footer: React.FC = () => {
           </Grid>
         </Box>
 
-        <Divider
+        <Box
           sx={{
-            borderColor: "rgba(245, 237, 232, 0.06)",
+            display: "flex",
+            alignItems: "center",
+            gap: 2,
+            opacity: 0.5,
           }}
-        />
+        >
+          <Box
+            sx={{
+              flex: 1,
+              height: "1px",
+              backgroundColor: "rgba(245, 237, 232, 0.08)",
+            }}
+          />
+          <Box
+            sx={{
+              width: 5,
+              height: 5,
+              borderRadius: "50%",
+              border: `1px solid ${GOLD}`,
+            }}
+          />
+          <Box
+            sx={{
+              flex: 1,
+              height: "1px",
+              backgroundColor: "rgba(245, 237, 232, 0.08)",
+            }}
+          />
+        </Box>
 
         <Box
           sx={{
@@ -366,106 +351,42 @@ const Footer: React.FC = () => {
             flexDirection: { xs: "column", md: "row" },
             justifyContent: "space-between",
             alignItems: "center",
-            gap: 2,
+            gap: 1,
           }}
         >
           <Typography
             sx={{
               fontFamily: '"Cormorant Garamond", serif',
-              color: "rgba(245, 237, 232, 0.3)",
-              fontSize: "0.8rem",
-              letterSpacing: "0.05em",
-              textAlign: "center",
+              color: "rgba(245, 237, 232, 0.35)",
+              fontSize: "0.82rem",
+              letterSpacing: "0.02em",
             }}
           >
             © {new Date().getFullYear()} Décimo Rollo. Todos los derechos
             reservados.
-            <Box
-              component="span"
-              sx={{
-                display: "block",
-                mt: 0.5,
-              }}
-            >
-              Diseñado y desarrollado por{" "}
-              <Link
-                href="https://alonsdev.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                underline="none"
-                sx={{
-                  color: "rgba(196, 154, 108, 0.7)",
-                  transition: "color 0.3s ease",
-                  "&:hover": {
-                    color: "#C49A6C",
-                  },
-                }}
-              >
-                AlonsDev
-              </Link>
-            </Box>
           </Typography>
-
-          <Box
+          <Typography
             sx={{
-              display: "flex",
-              gap: 3,
-              flexWrap: "wrap",
-              justifyContent: "center",
+              fontFamily: '"Cormorant Garamond", serif',
+              color: "rgba(245, 237, 232, 0.35)",
+              fontSize: "0.82rem",
             }}
           >
+            Diseñado por{" "}
             <Link
-              href="#"
+              href="https://alonsdev.com"
+              target="_blank"
+              rel="noopener noreferrer"
               underline="none"
               sx={{
-                fontFamily: '"Cormorant Garamond", serif',
-                color: "rgba(245, 237, 232, 0.3)",
-                fontSize: "0.75rem",
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
-                transition: "color 0.3s ease",
-                "&:hover": {
-                  color: "#C49A6C",
-                },
+                color: GOLD_SOFT,
+                transition: "color 0.25s ease",
+                "&:hover": { color: GOLD },
               }}
             >
-              Privacidad
+              AlonsDev
             </Link>
-            <Link
-              href="#"
-              underline="none"
-              sx={{
-                fontFamily: '"Cormorant Garamond", serif',
-                color: "rgba(245, 237, 232, 0.3)",
-                fontSize: "0.75rem",
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
-                transition: "color 0.3s ease",
-                "&:hover": {
-                  color: "#C49A6C",
-                },
-              }}
-            >
-              Términos
-            </Link>
-            <Link
-              href="#"
-              underline="none"
-              sx={{
-                fontFamily: '"Cormorant Garamond", serif',
-                color: "rgba(245, 237, 232, 0.3)",
-                fontSize: "0.75rem",
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
-                transition: "color 0.3s ease",
-                "&:hover": {
-                  color: "#C49A6C",
-                },
-              }}
-            >
-              Cookies
-            </Link>
-          </Box>
+          </Typography>
         </Box>
       </Container>
     </Box>
