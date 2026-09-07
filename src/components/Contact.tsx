@@ -29,7 +29,7 @@ const Contact: React.FC = () => {
     navigator.clipboard.writeText(text);
   };
 
-  const whatsappNumber = "+521234567890";
+  const whatsappNumber = "+523931062765";
   const bankAccount = {
     bank: "Banco Ejemplo",
     accountNumber: "0123 4567 8901 2345",
