@@ -32,7 +32,6 @@ export const buildOrderMessage = (
     ``,
     `*Total: $${subtotal.toFixed(2)}*`,
     ``,
-    `📎 Adjunto el comprobante en PDF que se acaba de descargar.`,
   ].join("\n");
 };
 
