@@ -10,6 +10,11 @@ import {
   Button,
   Backdrop,
   CircularProgress,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
 } from "@mui/material";
 import { AnimatePresence, motion } from "framer-motion";
 import CloseIcon from "@mui/icons-material/Close";
@@ -17,7 +22,6 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
-import { downloadOrderPDF } from "./OrderPDF";
 import { openWhatsAppWithOrder } from "./whatsapp";
 
 export type Preparation = "normal" | "empanizado";
@@ -56,6 +60,7 @@ export const CartPanel: React.FC<CartPanelProps> = ({
   onCheckout,
 }) => {
   const [isProcessing, setIsProcessing] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   const subtotal = useMemo(
     () =>
@@ -73,16 +78,26 @@ export const CartPanel: React.FC<CartPanelProps> = ({
 
   const handleConfirmOrder = async () => {
     if (items.length === 0 || isProcessing) return;
+    setShowConfirmation(true);
+  };
+
+  const handleSendToWhatsApp = () => {
     setIsProcessing(true);
     try {
-      const { orderNumber } = await downloadOrderPDF(items);
+      const orderNumber = Date.now().toString().slice(-6);
       openWhatsAppWithOrder(items, orderNumber);
+      setShowConfirmation(false);
       onCheckout?.();
+      onClose();
     } catch (err) {
-      console.error("No se pudo generar el pedido:", err);
+      console.error("No se pudo enviar el pedido:", err);
     } finally {
       setIsProcessing(false);
     }
+  };
+
+  const handleCloseConfirmation = () => {
+    setShowConfirmation(false);
   };
 
   return (
@@ -116,7 +131,6 @@ export const CartPanel: React.FC<CartPanelProps> = ({
               flexDirection: "column",
             }}
           >
-            {/* Header */}
             <Box
               sx={{
                 px: 3,
@@ -460,6 +474,94 @@ export const CartPanel: React.FC<CartPanelProps> = ({
               </Box>
             )}
           </motion.div>
+
+          <Dialog
+            open={showConfirmation}
+            onClose={handleCloseConfirmation}
+            PaperProps={{
+              sx: {
+                borderRadius: "16px",
+                backgroundColor: "#FDF9F6",
+                maxWidth: "400px",
+                p: 1,
+              },
+            }}
+          >
+            <DialogTitle
+              sx={{
+                fontFamily: '"Playfair Display", serif',
+                fontWeight: 700,
+                color: "#2C1810",
+                fontSize: "1.3rem",
+                pb: 1,
+              }}
+            >
+              Antes de enviar tu pedido
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText
+                sx={{
+                  fontFamily: '"Cormorant Garamond", serif',
+                  color: "rgba(44,24,16,0.8)",
+                  fontSize: "1rem",
+                }}
+              >
+                Tu pedido se enviará al WhatsApp de Désimo Rollo.
+                <br />
+                <br />
+                <strong>Importante:</strong> Para que podamos entregar tu
+                pedido, deberás enviar el comprobante de pago en el mismo chat
+                de WhatsApp.
+                <br />
+                <br />
+                ¿Deseas continuar?
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions sx={{ px: 3, pb: 2, gap: 1 }}>
+              <Button
+                onClick={handleCloseConfirmation}
+                sx={{
+                  backgroundColor: "transparent",
+                  color: "#2C1810",
+                  borderRadius: "12px",
+                  py: 1,
+                  flex: 1,
+                  fontFamily: '"Cormorant Garamond", serif',
+                  fontSize: "0.95rem",
+                  textTransform: "none",
+                  border: "1px solid rgba(196,154,108,0.3)",
+                  "&:hover": { backgroundColor: "rgba(196,154,108,0.05)" },
+                }}
+              >
+                Cancelar
+              </Button>
+              <Button
+                onClick={handleSendToWhatsApp}
+                disabled={isProcessing}
+                sx={{
+                  backgroundColor: "#2C1810",
+                  color: "#FFFFFF",
+                  borderRadius: "12px",
+                  py: 1,
+                  flex: 1,
+                  fontFamily: '"Cormorant Garamond", serif',
+                  fontSize: "0.95rem",
+                  textTransform: "none",
+                  "&:hover": { backgroundColor: "#1c0f09" },
+                  "&.Mui-disabled": {
+                    backgroundColor: "#2C1810",
+                    color: "rgba(255,255,255,0.6)",
+                  },
+                }}
+              >
+                {isProcessing ? (
+                  <CircularProgress size={20} sx={{ color: "#FFFFFF" }} />
+                ) : (
+                  "Enviar a WhatsApp"
+                )}
+              </Button>
+            </DialogActions>
+          </Dialog>
         </>
       )}
     </AnimatePresence>
