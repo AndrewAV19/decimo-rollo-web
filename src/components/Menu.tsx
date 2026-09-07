@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Container,
@@ -11,15 +11,21 @@ import {
   Stack,
   Rating,
   Button,
+  IconButton,
+  Badge,
 } from "@mui/material";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import LocalDiningIcon from "@mui/icons-material/LocalDining";
 import StarIcon from "@mui/icons-material/Star";
 import EastIcon from "@mui/icons-material/East";
+import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
+import AddIcon from "@mui/icons-material/Add";
+import CartPanel, { useCart } from "./Cart/Cart";
 
 const menuItems = [
   {
+    id: 1,
     name: "Sashimi Deluxe",
     description:
       "Selección premium de pescado fresco del día cortado por nuestros maestros sushi",
@@ -30,6 +36,7 @@ const menuItems = [
     category: "Premium",
   },
   {
+    id: 2,
     name: "Rolls Promociones",
     description:
       "Ocho rolls artesanales con ingredientes exclusivos y toques de autor",
@@ -40,6 +47,7 @@ const menuItems = [
     category: "Especialidad",
   },
   {
+    id: 3,
     name: "Temaki Premium",
     description:
       "Conos de alga nori rellenos con atún fresco y aguacate cremoso",
@@ -50,6 +58,7 @@ const menuItems = [
     category: "Clásico",
   },
   {
+    id: 4,
     name: "Sopa Miso",
     description: "Caldo tradicional japonés con tofu sedoso y algas wakame",
     price: "$18",
@@ -60,6 +69,21 @@ const menuItems = [
 ];
 
 const Menu: React.FC = () => {
+  const { items, addItem, updateQuantity, updatePreparation, removeItem } =
+    useCart();
+  const [cartOpen, setCartOpen] = useState(false);
+
+  const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
+
+  const handleAddToCart = (menuItem: (typeof menuItems)[0]) => {
+    addItem({
+      id: menuItem.id,
+      name: menuItem.name,
+      price: menuItem.price,
+      image: menuItem.image,
+    });
+  };
+
   return (
     <Box
       sx={{
@@ -82,74 +106,121 @@ const Menu: React.FC = () => {
       />
 
       <Container maxWidth="xl">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          viewport={{ once: true }}
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "flex-start",
+            mb: { xs: 4, md: 8 },
+          }}
         >
-          <Box sx={{ textAlign: "center", mb: { xs: 4, md: 8 } }}>
-            <Typography
-              variant="overline"
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            viewport={{ once: true }}
+            style={{ flex: 1 }}
+          >
+            <Box sx={{ textAlign: "center" }}>
+              <Typography
+                variant="overline"
+                sx={{
+                  color: "#C49A6C",
+                  letterSpacing: "0.4em",
+                  fontSize: { xs: "0.6rem", sm: "0.75rem" },
+                  fontWeight: 300,
+                  fontFamily: '"Cormorant Garamond", serif',
+                  position: "relative",
+                  display: "inline-block",
+                  "&::before": {
+                    content: '""',
+                    position: "absolute",
+                    bottom: -2,
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    width: 40,
+                    height: 2,
+                    backgroundColor: "rgba(196, 154, 108, 0.3)",
+                  },
+                }}
+              >
+                Nuestro Menú
+              </Typography>
+
+              <Typography
+                variant="h2"
+                sx={{
+                  fontFamily: '"Playfair Display", serif',
+                  fontWeight: 700,
+                  color: "#2C1810",
+                  fontSize: { xs: "2.2rem", sm: "3rem", md: "3.8rem" },
+                  mt: 1.5,
+                  mb: 1,
+                  letterSpacing: "0.02em",
+                }}
+              >
+                Experiencias{" "}
+                <span style={{ color: "#C49A6C" }}>Gastronómicas</span>
+              </Typography>
+
+              <Typography
+                variant="body1"
+                sx={{
+                  fontFamily: '"Cormorant Garamond", serif',
+                  color: "rgba(44, 24, 16, 0.6)",
+                  fontSize: { xs: "0.95rem", sm: "1.1rem" },
+                  maxWidth: 500,
+                  mx: "auto",
+                  fontWeight: 300,
+                  letterSpacing: "0.03em",
+                }}
+              >
+                Descubre nuestra selección de platos cuidadosamente preparados
+              </Typography>
+            </Box>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+          >
+            <IconButton
+              onClick={() => setCartOpen(true)}
               sx={{
-                color: "#C49A6C",
-                letterSpacing: "0.4em",
-                fontSize: { xs: "0.6rem", sm: "0.75rem" },
-                fontWeight: 300,
-                fontFamily: '"Cormorant Garamond", serif',
-                position: "relative",
-                display: "inline-block",
-                "&::before": {
-                  content: '""',
-                  position: "absolute",
-                  bottom: -2,
-                  left: "50%",
-                  transform: "translateX(-50%)",
-                  width: 40,
-                  height: 2,
-                  backgroundColor: "rgba(196, 154, 108, 0.3)",
+                backgroundColor: "#2C1810",
+                color: "#FFFFFF",
+                borderRadius: "12px",
+                p: 1.5,
+                "&:hover": {
+                  backgroundColor: "#1c0f09",
                 },
               }}
             >
-              Nuestro Menú
-            </Typography>
-
-            <Typography
-              variant="h2"
-              sx={{
-                fontFamily: '"Playfair Display", serif',
-                fontWeight: 700,
-                color: "#2C1810",
-                fontSize: { xs: "2.2rem", sm: "3rem", md: "3.8rem" },
-                mt: 1.5,
-                mb: 1,
-                letterSpacing: "0.02em",
-              }}
-            >
-              Experiencias{" "}
-              <span style={{ color: "#C49A6C" }}>Gastronómicas</span>
-            </Typography>
-
-            <Typography
-              variant="body1"
-              sx={{
-                fontFamily: '"Cormorant Garamond", serif',
-                color: "rgba(44, 24, 16, 0.6)",
-                fontSize: { xs: "0.95rem", sm: "1.1rem" },
-                maxWidth: 500,
-                mx: "auto",
-                fontWeight: 300,
-                letterSpacing: "0.03em",
-              }}
-            >
-              Descubre nuestra selección de platos cuidadosamente preparados
-            </Typography>
-          </Box>
-        </motion.div>
+              <Badge
+                badgeContent={totalItems}
+                sx={{
+                  "& .MuiBadge-badge": {
+                    backgroundColor: "#C49A6C",
+                    color: "#FFFFFF",
+                    fontFamily: '"Cormorant Garamond", serif',
+                    fontWeight: 600,
+                    fontSize: "0.7rem",
+                    right: -4,
+                    top: -4,
+                  },
+                }}
+              >
+                <ShoppingBagOutlinedIcon />
+              </Badge>
+            </IconButton>
+          </motion.div>
+        </Box>
 
         <Grid container spacing={4}>
           {menuItems.map((item, index) => (
-            <Grid item xs={12} sm={6} md={3} key={item.name}>
+            <Grid item xs={12} sm={6} md={3} key={item.id}>
               <motion.div
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -347,34 +418,48 @@ const Menu: React.FC = () => {
                         </Typography>
                       </Stack>
 
-                      <Box
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: 0.5,
-                          color: "rgba(44, 24, 16, 0.3)",
-                          fontSize: "0.6rem",
-                          letterSpacing: "0.1em",
-                          textTransform: "uppercase",
-                          fontFamily: '"Cormorant Garamond", serif',
-                          transition: "all 0.3s ease",
-                          cursor: "default",
-                          "&:hover": {
-                            color: "#C49A6C",
-                          },
-                        }}
-                      >
-                        <LocalDiningIcon sx={{ fontSize: 14 }} />
-                        <Typography
-                          variant="caption"
+                      <Stack direction="row" spacing={1} alignItems="center">
+                        <Box
                           sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: 0.5,
+                            color: "rgba(44, 24, 16, 0.3)",
+                            fontSize: "0.6rem",
+                            letterSpacing: "0.1em",
+                            textTransform: "uppercase",
                             fontFamily: '"Cormorant Garamond", serif',
-                            fontSize: "0.65rem",
+                            cursor: "default",
                           }}
                         >
-                          {item.category}
-                        </Typography>
-                      </Box>
+                          <LocalDiningIcon sx={{ fontSize: 14 }} />
+                          <Typography
+                            variant="caption"
+                            sx={{
+                              fontFamily: '"Cormorant Garamond", serif',
+                              fontSize: "0.65rem",
+                            }}
+                          >
+                            {item.category}
+                          </Typography>
+                        </Box>
+
+                        <IconButton
+                          onClick={() => handleAddToCart(item)}
+                          size="small"
+                          sx={{
+                            backgroundColor: "#2C1810",
+                            color: "#FFFFFF",
+                            borderRadius: "8px",
+                            p: 0.8,
+                            "&:hover": {
+                              backgroundColor: "#1c0f09",
+                            },
+                          }}
+                        >
+                          <AddIcon sx={{ fontSize: 16 }} />
+                        </IconButton>
+                      </Stack>
                     </Stack>
                   </CardContent>
                 </Card>
@@ -424,6 +509,15 @@ const Menu: React.FC = () => {
           </Button>
         </motion.div>
       </Container>
+
+      <CartPanel
+        open={cartOpen}
+        items={items}
+        onClose={() => setCartOpen(false)}
+        onQuantityChange={updateQuantity}
+        onPreparationChange={updatePreparation}
+        onRemove={removeItem}
+      />
     </Box>
   );
 };
