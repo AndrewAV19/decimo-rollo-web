@@ -12,11 +12,16 @@ import {
   Rating,
   TextField,
   InputAdornment,
+  Badge,
+  Fab,
+  Button,
 } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
 import LocalDiningIcon from "@mui/icons-material/LocalDining";
 import StarIcon from "@mui/icons-material/Star";
 import SearchIcon from "@mui/icons-material/Search";
+import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
+import { CartPanel, useCart } from "./Cart/Cart";
 
 interface MenuItem {
   id: number;
@@ -164,6 +169,18 @@ const allMenuItems: MenuItem[] = [
 
 const FullMenu: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [cartOpen, setCartOpen] = useState(false);
+  const [justAddedId, setJustAddedId] = useState<number | null>(null);
+
+  const {
+    items: cartItems,
+    addItem,
+    updateQuantity,
+    updatePreparation,
+    removeItem,
+  } = useCart();
+
+  const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   const filteredItems = allMenuItems.filter((item) => {
     const matchesSearch =
@@ -171,6 +188,18 @@ const FullMenu: React.FC = () => {
       item.description.toLowerCase().includes(searchTerm.toLowerCase());
     return matchesSearch;
   });
+
+  const handleAddToCart = (item: MenuItem) => {
+    if (!item.available) return;
+    addItem({
+      id: item.id,
+      name: item.name,
+      price: item.price,
+      image: item.image,
+    });
+    setJustAddedId(item.id);
+    window.setTimeout(() => setJustAddedId(null), 1200);
+  };
 
   return (
     <Box
@@ -526,6 +555,7 @@ const FullMenu: React.FC = () => {
                                 spacing={1.5}
                                 alignItems="center"
                                 justifyContent="space-between"
+                                sx={{ mb: 1.5 }}
                               >
                                 <Stack
                                   direction="row"
@@ -592,6 +622,47 @@ const FullMenu: React.FC = () => {
                                   </Typography>
                                 </Box>
                               </Stack>
+
+                              <Button
+                                fullWidth
+                                disabled={!item.available}
+                                onClick={() => handleAddToCart(item)}
+                                startIcon={
+                                  <ShoppingBagOutlinedIcon
+                                    sx={{ fontSize: 16 }}
+                                  />
+                                }
+                                sx={{
+                                  borderRadius: "10px",
+                                  py: 0.8,
+                                  textTransform: "none",
+                                  fontFamily: '"Cormorant Garamond", serif',
+                                  fontSize: "0.85rem",
+                                  letterSpacing: "0.03em",
+                                  backgroundColor:
+                                    justAddedId === item.id
+                                      ? "#7A9D6F"
+                                      : "#2C1810",
+                                  color: "#FFFFFF",
+                                  transition: "background-color 0.3s ease",
+                                  "&:hover": {
+                                    backgroundColor:
+                                      justAddedId === item.id
+                                        ? "#7A9D6F"
+                                        : "#1c0f09",
+                                  },
+                                  "&.Mui-disabled": {
+                                    backgroundColor: "rgba(44,24,16,0.15)",
+                                    color: "rgba(255,255,255,0.7)",
+                                  },
+                                }}
+                              >
+                                {justAddedId === item.id
+                                  ? "Agregado"
+                                  : item.available
+                                  ? "Agregar"
+                                  : "No disponible"}
+                              </Button>
                             </CardContent>
                           </Card>
                         </motion.div>
@@ -604,6 +675,57 @@ const FullMenu: React.FC = () => {
           </Grid>
         </Grid>
       </Container>
+
+      <Box
+        sx={{
+          position: "fixed",
+          bottom: { xs: 20, md: 32 },
+          right: { xs: 20, md: 32 },
+          zIndex: 1200,
+        }}
+      >
+        <Badge
+          badgeContent={cartCount}
+          invisible={cartCount === 0}
+          sx={{
+            "& .MuiBadge-badge": {
+              backgroundColor: "#C49A6C",
+              color: "#FFFFFF",
+              fontFamily: '"Cormorant Garamond", serif',
+              fontWeight: 700,
+              fontSize: "0.75rem",
+              minWidth: 20,
+              height: 20,
+            },
+          }}
+        >
+          <Fab
+            onClick={() => setCartOpen(true)}
+            sx={{
+              backgroundColor: "#2C1810",
+              color: "#FFFFFF",
+              width: 60,
+              height: 60,
+              boxShadow: "0 8px 24px rgba(44, 24, 16, 0.25)",
+              "&:hover": { backgroundColor: "#1c0f09" },
+            }}
+          >
+            <ShoppingBagOutlinedIcon />
+          </Fab>
+        </Badge>
+      </Box>
+
+      <CartPanel
+        open={cartOpen}
+        items={cartItems}
+        onClose={() => setCartOpen(false)}
+        onQuantityChange={updateQuantity}
+        onPreparationChange={updatePreparation}
+        onRemove={removeItem}
+        onCheckout={() => {
+          console.log("Checkout:", cartItems);
+        }}
+      />
     </Box>
   );
 };
